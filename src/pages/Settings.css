@@ -1,0 +1,278 @@
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.profile-settings {
+  grid-column: span 2;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0 0 1.5rem 0;
+}
+
+.dark .section-title {
+  color: var(--color-gray-100);
+}
+
+.profile-info {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-avatar {
+  flex-shrink: 0;
+}
+
+.avatar-img.large {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-gray-200);
+}
+
+.dark .avatar-img.large {
+  border-color: var(--color-gray-600);
+}
+
+.profile-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-gray-700);
+}
+
+.dark .form-group label {
+  color: var(--color-gray-300);
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--rounded);
+  font-size: 0.875rem;
+  color: var(--color-gray-900);
+  background-color: white;
+  transition: var(--transition);
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.1);
+}
+
+.form-input:disabled {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-500);
+  cursor: not-allowed;
+}
+
+.dark .form-input,
+.dark .form-select {
+  background-color: var(--color-gray-700);
+  border-color: var(--color-gray-600);
+  color: var(--color-gray-100);
+}
+
+.dark .form-input:focus,
+.dark .form-select:focus {
+  border-color: var(--color-primary-light);
+  box-shadow: 0 0 0 2px rgba(94, 234, 212, 0.1);
+}
+
+.dark .form-input:disabled {
+  background-color: var(--color-gray-800);
+  color: var(--color-gray-400);
+}
+
+.save-btn {
+  margin-top: 1.5rem;
+}
+
+.section-divider {
+  height: 1px;
+  background-color: var(--color-gray-200);
+  margin: 1.5rem 0;
+}
+
+.dark .section-divider {
+  background-color: var(--color-gray-700);
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.setting-info {
+  flex: 1;
+}
+
+.setting-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-gray-900);
+  margin: 0 0 0.25rem 0;
+}
+
+.dark .setting-title {
+  color: var(--color-gray-100);
+}
+
+.setting-description {
+  font-size: 0.875rem;
+  color: var(--color-gray-500);
+  margin: 0;
+}
+
+.dark .setting-description {
+  color: var(--color-gray-400);
+}
+
+.theme-toggle {
+  display: flex;
+  background-color: var(--color-gray-100);
+  border-radius: var(--rounded);
+  overflow: hidden;
+}
+
+.dark .theme-toggle {
+  background-color: var(--color-gray-700);
+}
+
+.theme-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: transparent;
+  color: var(--color-gray-600);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.theme-btn.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.dark .theme-btn {
+  color: var(--color-gray-400);
+}
+
+.dark .theme-btn.active {
+  background-color: var(--color-primary-dark);
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-gray-300);
+  transition: var(--transition);
+  border-radius: 24px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: var(--transition);
+  border-radius: 50%;
+}
+
+.toggle input:checked + .toggle-slider {
+  background-color: var(--color-primary);
+}
+
+.toggle input:checked + .toggle-slider:before {
+  transform: translateX(24px);
+}
+
+.dark .toggle-slider {
+  background-color: var(--color-gray-600);
+}
+
+.dark .toggle-slider:before {
+  background-color: var(--color-gray-800);
+}
+
+@media (max-width: 1024px) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-settings {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .setting-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .toggle,
+  .theme-toggle,
+  button {
+    align-self: flex-start;
+  }
+}

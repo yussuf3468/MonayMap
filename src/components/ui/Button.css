@@ -1,0 +1,136 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  border-radius: var(--rounded);
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Variants */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-800);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-gray-200);
+}
+
+.dark .btn-secondary {
+  background-color: var(--color-gray-700);
+  color: var(--color-gray-100);
+}
+
+.dark .btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-gray-600);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-gray-700);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background-color: var(--color-gray-50);
+  border-color: var(--color-gray-400);
+}
+
+.dark .btn-outline {
+  border-color: var(--color-gray-600);
+  color: var(--color-gray-300);
+}
+
+.dark .btn-outline:hover:not(:disabled) {
+  background-color: var(--color-gray-700);
+  border-color: var(--color-gray-500);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-gray-700);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background-color: var(--color-gray-100);
+}
+
+.dark .btn-ghost {
+  color: var(--color-gray-300);
+}
+
+.dark .btn-ghost:hover:not(:disabled) {
+  background-color: var(--color-gray-700);
+}
+
+.btn-danger {
+  background-color: var(--color-error);
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #DC2626;
+}
+
+/* Sizes */
+.btn-sm {
+  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+  height: 32px;
+}
+
+.btn-md {
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  height: 40px;
+}
+
+.btn-lg {
+  font-size: 1rem;
+  padding: 0.625rem 1.25rem;
+  height: 48px;
+}
+
+/* Widths */
+.btn-full-width {
+  width: 100%;
+}
+
+/* With Icon */
+.btn-with-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-left .btn-icon:first-child {
+  margin-right: 0.25rem;
+}
+
+.icon-right .btn-icon:last-child {
+  margin-left: 0.25rem;
+}

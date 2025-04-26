@@ -1,0 +1,367 @@
+.analytics-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.time-range-selector {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  gap: 1.5rem;
+}
+
+.expenses-by-category {
+  grid-column: 1;
+}
+
+.income-vs-expenses {
+  grid-column: 2;
+}
+
+.spending-trends {
+  grid-column: 1 / span 2;
+}
+
+.chart-container {
+  display: flex;
+  margin-top: 1.5rem;
+  gap: 2rem;
+  height: 300px;
+}
+
+.donut-chart {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: var(--color-gray-200);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.dark .donut-chart {
+  background-color: var(--color-gray-700);
+}
+
+:root {
+  --chart-color-1: #0D9488;
+  --chart-color-2: #8B5CF6;
+  --chart-color-3: #F59E0B;
+  --chart-color-4: #EC4899;
+  --chart-color-5: #3B82F6;
+  --chart-color-6: #10B981;
+}
+
+.donut-segment {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(var(--rotation));
+  background-image: conic-gradient(
+    var(--color) 0% var(--percentage),
+    transparent var(--percentage) 100%
+  );
+}
+
+.donut-hole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  height: 65%;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .donut-hole {
+  background-color: var(--color-gray-800);
+}
+
+.donut-total {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0;
+}
+
+.dark .donut-total {
+  color: var(--color-gray-100);
+}
+
+.donut-label {
+  font-size: 0.875rem;
+  color: var(--color-gray-500);
+  margin: 0;
+}
+
+.dark .donut-label {
+  color: var(--color-gray-400);
+}
+
+.category-legend {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.legend-details {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.legend-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.legend-label {
+  font-size: 0.875rem;
+  color: var(--color-gray-700);
+}
+
+.dark .legend-label {
+  color: var(--color-gray-300);
+}
+
+.legend-percentage {
+  font-size: 0.75rem;
+  color: var(--color-gray-500);
+}
+
+.dark .legend-percentage {
+  color: var(--color-gray-400);
+}
+
+.legend-amount {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-gray-900);
+}
+
+.dark .legend-amount {
+  color: var(--color-gray-100);
+}
+
+.chart-legend.horizontal {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.bar-chart {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 250px;
+  margin: 1.5rem 0 1rem 0;
+  padding-top: 1.5rem;
+}
+
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.bar-container {
+  display: flex;
+  align-items: flex-end;
+  height: 200px;
+  width: 100%;
+  gap: 6px;
+  justify-content: center;
+}
+
+.bar {
+  position: relative;
+  width: 25px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.5s ease;
+}
+
+.income-bar {
+  background-color: var(--color-primary);
+}
+
+.expense-bar {
+  background-color: var(--color-error);
+}
+
+.bar-value {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-gray-600);
+  white-space: nowrap;
+  margin-bottom: 0.25rem;
+}
+
+.dark .bar-value {
+  color: var(--color-gray-400);
+}
+
+.bar-label {
+  font-size: 0.875rem;
+  color: var(--color-gray-600);
+  margin-top: 0.5rem;
+}
+
+.dark .bar-label {
+  color: var(--color-gray-400);
+}
+
+.trend-chart {
+  display: flex;
+  height: 250px;
+  margin: 1.5rem 0 1rem 0;
+}
+
+.trend-y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--color-gray-500);
+}
+
+.dark .trend-y-axis {
+  color: var(--color-gray-400);
+}
+
+.trend-lines {
+  flex: 1;
+  position: relative;
+}
+
+.trend-grid-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.grid-line {
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-gray-200);
+}
+
+.dark .grid-line {
+  background-color: var(--color-gray-700);
+}
+
+.trend-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 20px);
+  z-index: 2;
+}
+
+.trend-line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.income-line {
+  stroke: var(--color-primary);
+}
+
+.expense-line {
+  stroke: var(--color-error);
+}
+
+.trend-x-axis {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--color-gray-500);
+}
+
+.dark .trend-x-axis {
+  color: var(--color-gray-400);
+}
+
+@media (max-width: 1024px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .expenses-by-category,
+  .income-vs-expenses,
+  .spending-trends {
+    grid-column: auto;
+  }
+  
+  .chart-container {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    gap: 1.5rem;
+  }
+  
+  .donut-chart {
+    margin: 0 auto;
+  }
+  
+  .category-legend {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
