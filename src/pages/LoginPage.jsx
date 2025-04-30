@@ -5,11 +5,7 @@ import Button from '../components/ui/Button';
 import { useAuth } from '../contexts/AuthContext';
 import './AuthPages.css';
 
-interface LoginPageProps {
-  onLogin: () => void;
-}
-
-const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +14,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!email || !password) {
@@ -30,15 +26,16 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
       setIsLoading(true);
       setError('');
       await login(email, password);
-      onLogin();
+      console.log('Login successful');
       navigate('/');
     } catch (err) {
+      console.log('Login failed:', err);  // Log the full error object
       setError('Invalid email or password');
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   return (
     <div className="auth-page">
       <div className="auth-container fade-in">

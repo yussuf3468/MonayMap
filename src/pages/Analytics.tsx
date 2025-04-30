@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
-import { useData } from '../contexts/DataContext';
+// import { useData } from '../contexts/DataContext';
 import './Analytics.css';
 
 type TimeRange = 'week' | 'month' | 'year';
@@ -17,7 +17,7 @@ const Analytics: React.FC = () => {
     { category: 'Transportation', amount: 450, percentage: 15 },
     { category: 'Entertainment', amount: 300, percentage: 10 },
     { category: 'Utilities', amount: 240, percentage: 8 },
-    { category: 'Other', amount: 210, percentage: 7 }
+    // { category: 'Other', amount: 210, percentage: 7 }
   ];
 
   const monthlyData = [

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Plus, TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
-import { useData } from '../contexts/DataContext';
+import { useData } from '../contexts/DataContext.jsx';
 import './Dashboard.css';
 
 // 🛑 Import or create your AddTransactionForm component
@@ -10,13 +10,13 @@ import './Dashboard.css';
 const Dashboard: React.FC = () => {
   const { totalBalance, totalIncome, totalExpenses, transactions } = useData();
   
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Get recent transactions
   const recentTransactions = transactions.slice(0, 5);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  // const openModal = () => setIsModalOpen(true);
+  // const closeModal = () => setIsModalOpen(false);
 
   const now = new Date();
   const greeting = getGreeting();
@@ -40,13 +40,13 @@ const Dashboard: React.FC = () => {
           size="md" 
           icon={<Plus size={18} />}
           iconPosition="left"
-          onClick={openModal} // 👈 Open modal on click
+          // onClick={openModal} // 👈 Open modal on click
         >
           New Transaction
         </Button>
       </div>
 
-      {/* Add Modal here */}
+      {/* Add Modal here
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -54,7 +54,7 @@ const Dashboard: React.FC = () => {
             <AddTransactionForm onClose={closeModal} />
           </div>
         </div>
-      )}
+      )} */}
       <div className="stat-cards">
         <Card className="stat-card balance slide-in-up">
           <div className="stat-icon">

@@ -3,11 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, Receipt, Wallet, PieChart, Settings, MapPin } from 'lucide-react';
 import './Sidebar.css';
 
-interface SidebarProps {
-  collapsed: boolean;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
+const Sidebar = ({ collapsed }) => {
   return (
     <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-header">

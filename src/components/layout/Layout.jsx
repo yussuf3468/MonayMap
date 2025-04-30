@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import { Menu as MenuFold, Menu as MenuUnfold } from 'lucide-react';
 import './Layout.css';
 
-const Layout: React.FC = () => {
+const Layout = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const toggleSidebar = () => {
