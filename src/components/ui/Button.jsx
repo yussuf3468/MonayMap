@@ -1,16 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Button.css';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
-  size?: 'sm' | 'md' | 'lg';
-  fullWidth?: boolean;
-  icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
-  children: React.ReactNode;
-}
-
-const Button: React.FC<ButtonProps> = ({
+const Button = ({
   variant = 'primary',
   size = 'md',
   fullWidth = false,
@@ -37,6 +29,16 @@ const Button: React.FC<ButtonProps> = ({
       {icon && iconPosition === 'right' && <span className="btn-icon">{icon}</span>}
     </button>
   );
+};
+
+Button.propTypes = {
+  variant: PropTypes.oneOf(['primary', 'secondary', 'outline', 'ghost', 'danger']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  fullWidth: PropTypes.bool,
+  icon: PropTypes.node,
+  iconPosition: PropTypes.oneOf(['left', 'right']),
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 export default Button;

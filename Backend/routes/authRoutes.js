@@ -60,7 +60,6 @@ router.post("/register", async (req, res) => {
 // Login route
 router.post("/login", async (req, res) => {
 
-  console.log('BODY:', req.body); // ⬅️ add this line temporarily
   const { email, password } = req.body;
 
   try {

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Edit2, Trash2, Plus, Filter, Search } from 'lucide-react';
+import { Edit2, Trash2, Plus, Search } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
-import { useData, Transaction } from '../contexts/DataContext';
+import { useData } from '../contexts/DataContext';
 import './Transactions.css';
 
-const Transactions: React.FC = () => {
+const Transactions = () => {
   const { transactions, deleteTransaction } = useData();
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterType, setFilterType] = useState<'all' | 'income' | 'expense'>('all');
+  const [filterType, setFilterType] = useState('all');
 
   const filteredTransactions = transactions.filter(transaction => {
     const matchesSearch = 

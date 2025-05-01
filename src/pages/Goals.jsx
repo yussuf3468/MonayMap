@@ -5,10 +5,10 @@ import Button from '../components/ui/Button';
 import { useData } from '../contexts/DataContext';
 import './Goals.css';
 
-const Goals: React.FC = () => {
+const Goals = () => {
   const { goals, updateGoal } = useData();
 
-  const calculateProgress = (current: number, target: number) => {
+  const calculateProgress = (current, target) => {
     return Math.min(Math.round((current / target) * 100), 100);
   };
 
@@ -57,7 +57,7 @@ const Goals: React.FC = () => {
                 <div className="progress-bar">
                   <div 
                     className="progress-fill"
-                    style={{width: `${progress}%`}}
+                    style={{ width: `${progress}%` }}
                   ></div>
                 </div>
                 <span className="progress-text">{progress}%</span>

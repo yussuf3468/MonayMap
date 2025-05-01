@@ -5,7 +5,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { useAuth } from '../contexts/AuthContext';
 import './Settings.css';
 
-const Settings: React.FC = () => {
+const Settings = () => {
   const { theme, toggleTheme } = useTheme();
   const { user } = useAuth();
 
@@ -18,7 +18,7 @@ const Settings: React.FC = () => {
       <div className="settings-grid">
         <Card className="profile-settings slide-in-up">
           <h2 className="section-title">Profile</h2>
-          
+
           <div className="profile-info">
             <div className="profile-avatar">
               <img
@@ -27,7 +27,7 @@ const Settings: React.FC = () => {
                 className="avatar-img large"
               />
             </div>
-            
+
             <div className="profile-details">
               <div className="form-group">
                 <label htmlFor="username">Name</label>
@@ -38,7 +38,7 @@ const Settings: React.FC = () => {
                   defaultValue={user?.name}
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
@@ -51,9 +51,9 @@ const Settings: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="section-divider"></div>
-          
+
           <div className="form-group">
             <label htmlFor="currency">Default Currency</label>
             <select id="currency" className="form-select">
@@ -64,15 +64,15 @@ const Settings: React.FC = () => {
               <option value="cad">CAD - Canadian Dollar</option>
             </select>
           </div>
-          
+
           <Button variant="primary" size="md" className="save-btn">
             Save Changes
           </Button>
         </Card>
-        
+
         <Card className="app-settings slide-in-up" style={{ animationDelay: '0.1s' }}>
           <h2 className="section-title">App Settings</h2>
-          
+
           <div className="setting-item">
             <div className="setting-info">
               <h3 className="setting-title">Theme</h3>
@@ -93,9 +93,9 @@ const Settings: React.FC = () => {
               </button>
             </div>
           </div>
-          
+
           <div className="section-divider"></div>
-          
+
           <div className="setting-item">
             <div className="setting-info">
               <h3 className="setting-title">Notifications</h3>
@@ -106,9 +106,9 @@ const Settings: React.FC = () => {
               <span className="toggle-slider"></span>
             </label>
           </div>
-          
+
           <div className="section-divider"></div>
-          
+
           <div className="setting-item">
             <div className="setting-info">
               <h3 className="setting-title">Budget Alerts</h3>
@@ -119,9 +119,9 @@ const Settings: React.FC = () => {
               <span className="toggle-slider"></span>
             </label>
           </div>
-          
+
           <div className="section-divider"></div>
-          
+
           <div className="setting-item">
             <div className="setting-info">
               <h3 className="setting-title">Data Export</h3>
@@ -132,10 +132,10 @@ const Settings: React.FC = () => {
             </Button>
           </div>
         </Card>
-        
+
         <Card className="security-settings slide-in-up" style={{ animationDelay: '0.2s' }}>
           <h2 className="section-title">Security</h2>
-          
+
           <div className="form-group">
             <label htmlFor="current-password">Current Password</label>
             <input
@@ -145,7 +145,7 @@ const Settings: React.FC = () => {
               placeholder="Enter current password"
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="new-password">New Password</label>
             <input
@@ -155,7 +155,7 @@ const Settings: React.FC = () => {
               placeholder="Enter new password"
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="confirm-password">Confirm New Password</label>
             <input
@@ -165,13 +165,13 @@ const Settings: React.FC = () => {
               placeholder="Confirm new password"
             />
           </div>
-          
+
           <Button variant="primary" size="md" className="save-btn">
             Update Password
           </Button>
-          
+
           <div className="section-divider"></div>
-          
+
           <div className="setting-item">
             <div className="setting-info">
               <h3 className="setting-title">Two-Factor Authentication</h3>

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Plus, TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
-import Card from '../components/ui/Card';
-import Button from '../components/ui/Button';
+import Card from '../components/ui/Card.jsx';
+import Button from '../components/ui/Button.jsx';
 import { useData } from '../contexts/DataContext.jsx';
 import './Dashboard.css';
 
 // 🛑 Import or create your AddTransactionForm component
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   const { totalBalance, totalIncome, totalExpenses, transactions } = useData();
-  
+
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Get recent transactions
@@ -24,7 +24,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="dashboard fade-in">
       <div className="page-header">
-      <div>
+        <div>
           <h1 className="text-3xl font-bold tracking-tight">{greeting}</h1>
           <p className="text-muted-foreground">
             {now.toLocaleDateString("en-US", {
@@ -40,13 +40,13 @@ const Dashboard: React.FC = () => {
           size="md" 
           icon={<Plus size={18} />}
           iconPosition="left"
-          // onClick={openModal} // 👈 Open modal on click
+          // onClick={openModal}
         >
           New Transaction
         </Button>
       </div>
 
-      {/* Add Modal here
+      {/* 
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -54,7 +54,8 @@ const Dashboard: React.FC = () => {
             <AddTransactionForm onClose={closeModal} />
           </div>
         </div>
-      )} */}
+      )} 
+      */}
       <div className="stat-cards">
         <Card className="stat-card balance slide-in-up">
           <div className="stat-icon">
@@ -128,15 +129,15 @@ const Dashboard: React.FC = () => {
               <div className="pie-segment" style={{ 
                 '--percentage': '45%', 
                 '--color': 'var(--color-primary)' 
-              } as React.CSSProperties}></div>
+              }}></div>
               <div className="pie-segment" style={{ 
                 '--percentage': '30%', 
                 '--color': 'var(--color-accent)' 
-              } as React.CSSProperties}></div>
+              }}></div>
               <div className="pie-segment" style={{ 
                 '--percentage': '25%', 
                 '--color': 'var(--color-warning)' 
-              } as React.CSSProperties}></div>
+              }}></div>
             </div>
             
             <div className="chart-legend">

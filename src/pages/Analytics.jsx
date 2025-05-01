@@ -4,20 +4,16 @@ import Button from '../components/ui/Button';
 // import { useData } from '../contexts/DataContext';
 import './Analytics.css';
 
-type TimeRange = 'week' | 'month' | 'year';
-
-const Analytics: React.FC = () => {
+const Analytics = () => {
   // const { transactions } = useData();
-  const [timeRange, setTimeRange] = useState<TimeRange>('month');
+  const [timeRange, setTimeRange] = useState('month');
 
-  // Mock data for charts
   const expensesByCategory = [
     { category: 'Housing', amount: 1200, percentage: 40 },
     { category: 'Food', amount: 600, percentage: 20 },
     { category: 'Transportation', amount: 450, percentage: 15 },
     { category: 'Entertainment', amount: 300, percentage: 10 },
     { category: 'Utilities', amount: 240, percentage: 8 },
-    // { category: 'Other', amount: 210, percentage: 7 }
   ];
 
   const monthlyData = [
@@ -29,12 +25,10 @@ const Analytics: React.FC = () => {
     { month: 'Jun', income: 5400, expenses: 4300 },
   ];
 
-  // Calculate max value for the chart scaling
   const maxValue = Math.max(
     ...monthlyData.map(item => Math.max(item.income, item.expenses))
   );
 
-  // Calculate total expenses
   const totalExpenses = expensesByCategory.reduce(
     (total, item) => total + item.amount, 
     0
@@ -44,7 +38,6 @@ const Analytics: React.FC = () => {
     <div className="analytics-page fade-in">
       <div className="page-header">
         <h1 className="page-title">Analytics</h1>
-        
         <div className="time-range-selector">
           <Button 
             variant={timeRange === 'week' ? 'primary' : 'outline'} 
@@ -73,7 +66,6 @@ const Analytics: React.FC = () => {
       <div className="analytics-grid">
         <Card className="expenses-by-category slide-in-up">
           <h2 className="card-title">Expenses by Category</h2>
-          
           <div className="chart-container">
             <div className="donut-chart">
               {expensesByCategory.map((item, index) => (
@@ -84,7 +76,7 @@ const Analytics: React.FC = () => {
                     '--percentage': `${item.percentage}%`,
                     '--color': `var(--chart-color-${index + 1})`,
                     '--rotation': calculateRotation(index, expensesByCategory)
-                  } as React.CSSProperties}
+                  }}
                 ></div>
               ))}
               <div className="donut-hole">
@@ -115,7 +107,6 @@ const Analytics: React.FC = () => {
         
         <Card className="income-vs-expenses slide-in-up" style={{ animationDelay: '0.1s' }}>
           <h2 className="card-title">Income vs Expenses</h2>
-          
           <div className="bar-chart">
             {monthlyData.map(item => (
               <div key={item.month} className="bar-group">
@@ -152,7 +143,6 @@ const Analytics: React.FC = () => {
         
         <Card className="spending-trends slide-in-up" style={{ animationDelay: '0.2s' }}>
           <h2 className="card-title">Spending Trends</h2>
-          
           <div className="trend-chart">
             <div className="trend-y-axis">
               <span>$5k</span>
@@ -162,7 +152,6 @@ const Analytics: React.FC = () => {
               <span>$1k</span>
               <span>$0</span>
             </div>
-            
             <div className="trend-lines">
               <div className="trend-grid-lines">
                 <div className="grid-line"></div>
@@ -211,13 +200,12 @@ const Analytics: React.FC = () => {
   );
 };
 
-// Helper function to calculate rotation for donut chart segments
-const calculateRotation = (index: number, data: { percentage: number }[]) => {
+function calculateRotation(index, data) {
   let rotation = 0;
   for (let i = 0; i < index; i++) {
-    rotation += data[i].percentage * 3.6; // Convert percentage to degrees (360 / 100 = 3.6)
+    rotation += data[i].percentage * 3.6;
   }
   return `${rotation}deg`;
-};
+}
 
 export default Analytics;

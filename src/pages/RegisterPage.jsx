@@ -5,7 +5,7 @@ import Button from '../components/ui/Button';
 import { useAuth } from '../contexts/AuthContext';
 import './AuthPages.css';
 
-const RegisterPage: React.FC = () => {
+const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +16,7 @@ const RegisterPage: React.FC = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!name || !email || !password || !confirmPassword) {
