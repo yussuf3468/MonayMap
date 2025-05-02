@@ -4,19 +4,18 @@ import Card from '../components/ui/Card.jsx';
 import Button from '../components/ui/Button.jsx';
 import { useData } from '../contexts/DataContext.jsx';
 import './Dashboard.css';
-
-// 🛑 Import or create your AddTransactionForm component
+import AddTransactionForm from '../components/AddTransactionForm.jsx';
 
 const Dashboard = () => {
   const { totalBalance, totalIncome, totalExpenses, transactions } = useData();
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Get recent transactions
   const recentTransactions = transactions.slice(0, 5);
 
-  // const openModal = () => setIsModalOpen(true);
-  // const closeModal = () => setIsModalOpen(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const now = new Date();
   const greeting = getGreeting();
@@ -40,13 +39,13 @@ const Dashboard = () => {
           size="md" 
           icon={<Plus size={18} />}
           iconPosition="left"
-          // onClick={openModal}
+          onClick={openModal}
         >
           New Transaction
         </Button>
       </div>
 
-      {/* 
+      
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -55,7 +54,7 @@ const Dashboard = () => {
           </div>
         </div>
       )} 
-      */}
+     
       <div className="stat-cards">
         <Card className="stat-card balance slide-in-up">
           <div className="stat-icon">
@@ -83,7 +82,7 @@ const Dashboard = () => {
           </div>
           <div className="stat-content">
             <h3 className="stat-label">Expenses</h3>
-            <p className="stat-value">${totalExpenses.toLocaleString()}</p>
+            <p className="stat-value">-${Math.abs(totalExpenses).toLocaleString()}</p>
           </div>
         </Card>
       </div>
@@ -110,9 +109,11 @@ const Dashboard = () => {
                     <p className="transaction-date">{new Date(transaction.date).toLocaleDateString()}</p>
                   </div>
                 </div>
-                <p className={`transaction-amount ${transaction.type}`}>
-                  {transaction.type === 'income' ? '+' : '-'}${transaction.amount}
-                </p>
+                <div className="transaction-amount">
+                  <p className="amount">
+                    {transaction.type === 'income' ? '+' : '-'}${Math.abs(transaction.amount).toLocaleString()}
+                  </p>
+              </div>
               </div>
             ))}
           </div>

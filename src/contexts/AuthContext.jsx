@@ -11,13 +11,22 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     const token = localStorage.getItem('authToken');
-
+  
     if (token && storedUser) {
-      setUser(JSON.parse(storedUser));
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      } catch (err) {
+        console.error('Failed to parse stored user:', err);
+        localStorage.removeItem('user');
+        localStorage.removeItem('authToken');
+      }
     }
+  
     setLoading(false); // Done loading
   }, []);
+  
 
   const login = async (email, password) => {
     const response = await axios.post(`${API_URL}/login`, { email, password });
@@ -48,21 +57,22 @@ export const AuthProvider = ({ children }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Or a proper loading spinner
+    return <div>Loading...</div>; 
   }
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        login,
-        register,
-        logout,
-        isAuthenticated: !!user,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+      <AuthContext.Provider
+        value={{
+          user,
+          login,
+          register,
+          logout,
+          isAuthenticated: !!user,
+          token: localStorage.getItem('authToken'), // ✅ Add this line
+        }}
+      >
+        {children}
+      </AuthContext.Provider>
   );
 };
 

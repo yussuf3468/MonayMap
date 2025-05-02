@@ -1,146 +1,112 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback, useMemo } from 'react';
+import axios from 'axios';
+import { useAuth } from './AuthContext'; // Assuming you have useAuth()
 
 const DataContext = createContext(undefined);
 
-// Sample data
-const mockTransactions = [
-  {
-    id: '1',
-    date: '2025-06-01',
-    category: 'Salary',
-    amount: 5000,
-    type: 'income',
-    note: 'Monthly salary'
-  },
-  {
-    id: '2',
-    date: '2025-06-02',
-    category: 'Groceries',
-    amount: 120,
-    type: 'expense',
-    note: 'Weekly grocery shopping'
-  },
-  {
-    id: '3',
-    date: '2025-06-03',
-    category: 'Dining',
-    amount: 45,
-    type: 'expense',
-    note: 'Dinner with friends'
-  },
-  {
-    id: '4',
-    date: '2025-06-05',
-    category: 'Freelance',
-    amount: 750,
-    type: 'income',
-    note: 'Web design project'
-  },
-  {
-    id: '5',
-    date: '2025-06-08',
-    category: 'Utilities',
-    amount: 85,
-    type: 'expense',
-    note: 'Electricity bill'
-  }
-];
-
-const mockGoals = [
-  {
-    id: '1',
-    name: 'Emergency Fund',
-    targetAmount: 10000,
-    currentAmount: 5000,
-    deadline: '2025-12-31',
-    category: 'Savings'
-  },
-  {
-    id: '2',
-    name: 'New Laptop',
-    targetAmount: 1500,
-    currentAmount: 750,
-    deadline: '2025-09-30',
-    category: 'Electronics'
-  },
-  {
-    id: '3',
-    name: 'Vacation',
-    targetAmount: 3000,
-    currentAmount: 1200,
-    deadline: '2025-08-15',
-    category: 'Travel'
-  }
-];
-
 export const DataProvider = ({ children }) => {
-  const [transactions, setTransactions] = useState(mockTransactions);
-  const [goals, setGoals] = useState(mockGoals);
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { token } = useAuth(); // Assuming your login sets token in context
 
-  const totalIncome = transactions
-    .filter(t => t.type === 'income')
-    .reduce((sum, t) => sum + t.amount, 0);
+  const authHeaders = useMemo(
+    () => ({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+    [token]
+  );
 
-  const totalExpenses = transactions
-    .filter(t => t.type === 'expense')
-    .reduce((sum, t) => sum + t.amount, 0);
+  // Fetch all transactions on mount if token exists
+  useEffect(() => {
+    if (token && loading) {
+      fetchTransactions();
+    }
+  }, [token, loading]);
 
-  const totalBalance = totalIncome - totalExpenses;
+  const fetchTransactions = useCallback(async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/expenses`, authHeaders);
+      setTransactions(
+        res.data.map((t) => ({
+          ...t,
+          amount: t.type === 'expense' ? -Math.abs(Number(t.amount)) : Math.abs(Number(t.amount)),
+        }))
+      );
+    } catch (err) {
+      console.error('Error fetching transactions:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, [authHeaders]);
 
-  const addTransaction = (transaction) => {
-    const newTransaction = {
-      ...transaction,
-      id: Date.now().toString(),
-    };
-    setTransactions([newTransaction, ...transactions]);
-  };
+  const addTransaction = useCallback(
+    async (transaction) => {
+      console.log('Adding transaction:', transaction);
+      try {
+        const normalizedAmount =
+          transaction.type === 'expense'
+            ? -Math.abs(transaction.amount) 
+            : Math.abs(transaction.amount);
+  
+        const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/expenses`, { ...transaction, amount: normalizedAmount }, authHeaders);
+        setTransactions((prev) => [{ ...res.data, amount: normalizedAmount }, ...prev]);
+      } catch (err) {
+        console.error('Error adding transaction:', err);
+      }
+    },
+    [authHeaders]
+  );
 
-  const updateTransaction = (id, updatedFields) => {
-    setTransactions(
-      transactions.map(t =>
-        t.id === id ? { ...t, ...updatedFields } : t
-      )
-    );
-  };
+  const updateTransaction = useCallback(
+    async (id, updatedFields) => {
+      try {
+        const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/expenses/${id}`, updatedFields, authHeaders);
+        setTransactions((prev) => prev.map((t) => (t._id === id ? res.data : t)));
+      } catch (err) {
+        console.error('Error updating transaction:', err);
+      }
+    },
+    [authHeaders]
+  );
 
-  const deleteTransaction = (id) => {
-    setTransactions(transactions.filter(t => t.id !== id));
-  };
+  const deleteTransaction = useCallback(
+    async (id) => {
+      try {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/expenses/${id}`, authHeaders);
+        setTransactions((prev) => prev.filter((t) => t._id !== id));
+      } catch (err) {
+        console.error('Error deleting transaction:', err);
+      }
+    },
+    [authHeaders]
+  );
 
-  const addGoal = (goal) => {
-    const newGoal = {
-      ...goal,
-      id: Date.now().toString(),
-    };
-    setGoals([...goals, newGoal]);
-  };
+  const totalIncome = useMemo(
+    () => transactions.filter((t) => t.type === 'income').reduce((sum, t) => sum + t.amount, 0),
+    [transactions]
+  );
 
-  const updateGoal = (id, updatedFields) => {
-    setGoals(
-      goals.map(g =>
-        g.id === id ? { ...g, ...updatedFields } : g
-      )
-    );
-  };
+  const totalExpenses = useMemo(
+    () => Math.abs(transactions.filter((t) => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0)),
+    [transactions]
+  );
 
-  const deleteGoal = (id) => {
-    setGoals(goals.filter(g => g.id !== id));
-  };
+  const totalBalance = useMemo(() => totalIncome - totalExpenses, [totalIncome, totalExpenses]);
 
   return (
     <DataContext.Provider
       value={{
         transactions,
-        goals,
         addTransaction,
         updateTransaction,
         deleteTransaction,
-        addGoal,
-        updateGoal,
-        deleteGoal,
         totalBalance,
         totalIncome,
-        totalExpenses
+        totalExpenses,
+        loading,
+        fetchTransactions,
       }}
     >
       {children}

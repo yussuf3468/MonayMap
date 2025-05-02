@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
-import { Edit2, Trash2, Plus, Search } from 'lucide-react';
-import Card from '../components/ui/Card';
-import Button from '../components/ui/Button';
-import { useData } from '../contexts/DataContext';
-import './Transactions.css';
+import React, { useState } from "react";
+import { Edit2, Trash2, Plus, Search } from "lucide-react";
+import Card from "../components/ui/Card";
+import Button from "../components/ui/Button";
+import { useData } from "../contexts/DataContext";
+import "./Transactions.css";
 
 const Transactions = () => {
   const { transactions, deleteTransaction } = useData();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterType, setFilterType] = useState('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterType, setFilterType] = useState("all");
 
-  const filteredTransactions = transactions.filter(transaction => {
-    const matchesSearch = 
-      transaction.category.toLowerCase().includes(searchTerm.toLowerCase()) || 
+  const filteredTransactions = transactions.filter((transaction) => {
+    const matchesSearch =
+      transaction.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
       transaction.note.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesType = 
-      filterType === 'all' || 
-      transaction.type === filterType;
-    
+
+    const matchesType = filterType === "all" || transaction.type === filterType;
+
     return matchesSearch && matchesType;
   });
 
@@ -26,9 +24,9 @@ const Transactions = () => {
     <div className="transactions-page fade-in">
       <div className="page-header">
         <h1 className="page-title">Transactions</h1>
-        <Button 
-          variant="primary" 
-          size="md" 
+        <Button
+          variant="primary"
+          size="md"
           icon={<Plus size={18} />}
           iconPosition="left"
         >
@@ -40,33 +38,33 @@ const Transactions = () => {
         <div className="filters-bar">
           <div className="search-input">
             <Search size={18} className="search-icon" />
-            <input 
-              type="text" 
-              placeholder="Search transactions..." 
+            <input
+              type="text"
+              placeholder="Search transactions..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          
+
           <div className="filter-buttons">
-            <Button 
-              variant={filterType === 'all' ? 'primary' : 'outline'} 
+            <Button
+              variant={filterType === "all" ? "primary" : "outline"}
               size="sm"
-              onClick={() => setFilterType('all')}
+              onClick={() => setFilterType("all")}
             >
               All
             </Button>
-            <Button 
-              variant={filterType === 'income' ? 'primary' : 'outline'} 
+            <Button
+              variant={filterType === "income" ? "primary" : "outline"}
               size="sm"
-              onClick={() => setFilterType('income')}
+              onClick={() => setFilterType("income")}
             >
               Income
             </Button>
-            <Button 
-              variant={filterType === 'expense' ? 'primary' : 'outline'} 
+            <Button
+              variant={filterType === "expense" ? "primary" : "outline"}
               size="sm"
-              onClick={() => setFilterType('expense')}
+              onClick={() => setFilterType("expense")}
             >
               Expenses
             </Button>
@@ -86,16 +84,17 @@ const Transactions = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredTransactions.map(transaction => (
+              {filteredTransactions.map((transaction) => (
                 <tr key={transaction.id}>
                   <td>{new Date(transaction.date).toLocaleDateString()}</td>
                   <td>{transaction.category}</td>
                   <td className={`amount ${transaction.type}`}>
-                    ${transaction.amount.toLocaleString()}
+                    {transaction.type === "expense" ? "-" : ""}$
+                    {Math.abs(transaction.amount).toLocaleString()}
                   </td>
                   <td>
                     <span className={`badge ${transaction.type}`}>
-                      {transaction.type === 'income' ? 'Income' : 'Expense'}
+                      {transaction.type === "income" ? "Income" : "Expense"}
                     </span>
                   </td>
                   <td>{transaction.note}</td>
@@ -104,7 +103,7 @@ const Transactions = () => {
                       <button className="action-btn edit">
                         <Edit2 size={16} />
                       </button>
-                      <button 
+                      <button
                         className="action-btn delete"
                         onClick={() => deleteTransaction(transaction.id)}
                       >
