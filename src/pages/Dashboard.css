@@ -307,7 +307,7 @@
     gap: 1rem;
   }
 }
-.modal-overlay {
+/* .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -337,8 +337,8 @@
   font-size: 1.5rem;
   color: white;
   cursor: pointer;
-}
-
+} */
+/* 
 .add-transaction-form .form-group {
   margin-bottom: 1rem;
 }
@@ -428,4 +428,4 @@
   font-size: 0.75rem;
   color: var(--color-error);
   margin-top: 0.25rem;
-}
+} */
