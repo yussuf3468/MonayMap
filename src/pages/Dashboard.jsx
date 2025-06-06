@@ -258,7 +258,7 @@ const Dashboard = () => {
                   }) => {
 
                     const RADIAN = Math.PI / 180;
-                    const radius = outerRadius + 20; // push labels a bit further out
+                    const radius = outerRadius + 20; 
                     const x = cx + radius * Math.cos(-midAngle * RADIAN);
                     const y = cy + radius * Math.sin(-midAngle * RADIAN);
                     const sliceColor = getCategoryColor(index);

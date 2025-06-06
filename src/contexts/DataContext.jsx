@@ -7,6 +7,7 @@ const DataContext = createContext(undefined);
 export const DataProvider = ({ children }) => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [goals, setGoals] = useState([]);
   const { token } = useAuth(); // Assuming your login sets token in context
 
   const authHeaders = useMemo(
@@ -22,6 +23,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     if (token && loading) {
       fetchTransactions();
+      fetchGoals();
     }
   }, [token, loading]);
 
@@ -40,6 +42,28 @@ export const DataProvider = ({ children }) => {
       setLoading(false);
     }
   }, [authHeaders]);
+
+   const fetchGoals = useCallback(async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/goals`, authHeaders);
+      setGoals(res.data);
+    } catch (err) {
+      console.error('Error fetching goals:', err);
+    }
+  }, [authHeaders]);
+
+  // updateGoals is called when a goal is created or updated
+  const updateGoal = useCallback(
+    async (id, updatedFields) => {
+      try {
+        const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/goals/${id}`, updatedFields, authHeaders);
+        setGoals((prev) => prev.map((g) => (g._id === id ? res.data : g)));
+      } catch (err) {
+        console.error('Error updating goal:', err);
+      }
+    },
+    [authHeaders]
+  );
 
   const addTransaction = useCallback(
     async (transaction) => {
@@ -107,6 +131,8 @@ export const DataProvider = ({ children }) => {
         totalExpenses,
         loading,
         fetchTransactions,
+        goals,
+        updateGoal,
       }}
     >
       {children}

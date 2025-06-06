@@ -1,4 +1,3 @@
-import React from 'react';
 import { Plus, Archive, CheckSquare } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
@@ -7,6 +6,7 @@ import './Goals.css';
 
 const Goals = () => {
   const { goals, updateGoal } = useData();
+  // console.log(goals);
 
   const calculateProgress = (current, target) => {
     return Math.min(Math.round((current / target) * 100), 100);
